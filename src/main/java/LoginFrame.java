@@ -1,6 +1,6 @@
 
 import javax.swing.JOptionPane;
-
+import java.sql.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,9 +9,10 @@ import javax.swing.JOptionPane;
 
 public class LoginFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginFrame
-     */
+    private static final String DB_URL = "url do banco";
+    private static final String DB_USER = "usuario";
+    private static final String DB_PASSWORD = "senha";
+    
     public LoginFrame() {
         super("BookSide");
         initComponents();
@@ -121,16 +122,38 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sairButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-     String login = jTextField1.getText();
-    String senha = new String(jPasswordField1.getPassword());
-    
-    if (login.equals("admin") && senha.equals("admin")) {
-        
-        JOptionPane.showMessageDialog(this, "Bem-vindo");
-    } else {
-        
-        JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-    }
+   String login = jTextField1.getText();
+        String senha = new String(jPasswordField1.getPassword());
+
+        // Conectar ao banco de dados
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            String sql = "SELECT * FROM Usuarios WHERE nome = ? AND senha = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+
+            ResultSet result = stmt.executeQuery();
+
+            if (result.next()) {
+                JOptionPane.showMessageDialog(this, "Bem-vindo");
+                
+                  this.dispose();
+
+      
+                    Principal principal = new Principal();
+                    principal.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+            }
+
+            result.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
