@@ -1,6 +1,7 @@
 
 import javax.swing.JOptionPane;
 import java.sql.*;
+import dbc.ModuloConexao;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,14 +10,15 @@ import java.sql.*;
 
 public class LoginFrame extends javax.swing.JFrame {
 
-    private static final String DB_URL = "url do banco";
-    private static final String DB_USER = "usuario";
-    private static final String DB_PASSWORD = "senha";
+   Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
     
     public LoginFrame() {
         super("BookSide");
         initComponents();
         this.setLocationRelativeTo(null);
+        conexao = ModuloConexao.conector();
     }
 
     /**
@@ -122,20 +124,17 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sairButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-   String login = jTextField1.getText();
-        String senha = new String(jPasswordField1.getPassword());
 
+            
         // Conectar ao banco de dados
         try {
-            Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            String sql = "SELECT * FROM Usuarios WHERE nome = ? AND senha = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, login);
-            stmt.setString(2, senha);
-
-            ResultSet result = stmt.executeQuery();
-
-            if (result.next()) {
+            String sql = "select * from Usuarios where nome=? and senha=?";
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, jTextField1.getText());
+            pst.setString(2, jPasswordField1.getText());  
+                rs = pst.executeQuery();    
+                
+            if (rs.next()) {
                 JOptionPane.showMessageDialog(this, "Bem-vindo");
                 
                   this.dispose();
@@ -147,9 +146,8 @@ public class LoginFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos", "Erro de Login", JOptionPane.ERROR_MESSAGE);
             }
 
-            result.close();
-            stmt.close();
-            conn.close();
+            rs.close();
+           
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados", "Erro de Login", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
