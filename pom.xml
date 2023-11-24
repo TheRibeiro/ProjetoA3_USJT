@@ -11,4 +11,24 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
     <name>ProjetoA3</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE190</version>
+        </dependency>
+        <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.2.0</version> <!-- Substitua pela versão mais recente -->
+    </dependency>
+      
+    </dependencies>
+    <build>
+    <resources>
+        <resource>
+            <directory>src/main/java</directory>
+        </resource>
+     </resources>
+</build>
 </project>
