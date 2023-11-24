@@ -1,6 +1,6 @@
 CREATE DATABASE BibliotecaVirtual;
 
-USE Biblioteca;
+USE BibliotecaVirtual;
 
 CREATE TABLE Usuarios (
     id_usuario INT AUTO_INCREMENT,
@@ -23,15 +23,13 @@ CREATE TABLE Autores (
 CREATE TABLE Livros (
     id_livro INT AUTO_INCREMENT,
     titulo_livro VARCHAR(255) NOT NULL,
-    id_autor INT,
+    nome_autor VARCHAR(255),
     genero VARCHAR(255),
-    data_publicacao DATE,
     editora VARCHAR(255),
-    nota_livro float,
-    FOREIGN KEY (id_autor) REFERENCES Autores(id_autor),
+    nota_livro DECIMAL(3,1), 
     PRIMARY KEY (id_livro)
 );
 
 
 INSERT INTO Usuarios (nome_usuario, senha_usuario, sexo_usuario, email_usuario, genero_pref, nivel_acesso)
-VALUES ('Admin', 'SenhaAdmin123', 123456789, 'admin@email.com', 'Drama e Terror', 'admin');
+VALUES ('Admin', 'SenhaAdmin123', 123456789, 'admin@email.com', 'Romance', 'admin');

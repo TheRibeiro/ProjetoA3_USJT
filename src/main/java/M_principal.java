@@ -34,6 +34,11 @@ public class M_principal extends javax.swing.JFrame {
 
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(765, 300, 450, 120));
 
         jButton2.setBorderPainted(false);
@@ -61,6 +66,16 @@ public class M_principal extends javax.swing.JFrame {
     // Fechar a janela atual (se necessário)
     this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+           Livros p = new Livros();
+
+    // Tornar a janela ADM visível
+                p.setVisible(true);
+
+    // Fechar a janela atual (se necessário)
+                     this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

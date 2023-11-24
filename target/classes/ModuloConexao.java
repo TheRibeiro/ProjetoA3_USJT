@@ -13,7 +13,7 @@ public class ModuloConexao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Estabelecer a conexão com o banco de dados
-            String url = "jdbc:mysql://localhost:3306/Biblioteca";
+            String url = "jdbc:mysql://localhost:3306/BibliotecaProjeto";
             String user = "root";
             String password = "ribeiro";
             conexao = DriverManager.getConnection(url, user, password);
