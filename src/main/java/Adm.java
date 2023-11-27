@@ -33,20 +33,19 @@ public class Adm extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        generosField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         nomeField = new javax.swing.JTextField();
         usuarioField = new javax.swing.JTextField();
         EmailField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         sexoField = new javax.swing.JTextField();
         senhaField = new javax.swing.JPasswordField();
-        admField = new javax.swing.JRadioButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,13 +59,6 @@ public class Adm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 603, 370, 90));
-
-        generosField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generosFieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(generosField, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 470, 320, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Usuario:");
@@ -87,10 +79,6 @@ public class Adm extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel6.setText("Generos Preferidos:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 470, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel7.setText("Acesso:");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 540, -1, -1));
         getContentPane().add(nomeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 320, 30));
 
         usuarioField.addActionListener(new java.awt.event.ActionListener() {
@@ -102,8 +90,8 @@ public class Adm extends javax.swing.JFrame {
         getContentPane().add(EmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, 320, 30));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel8.setText("Email:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, -1, -1));
+        jLabel8.setText("Idade:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 70, -1));
 
         sexoField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,13 +107,22 @@ public class Adm extends javax.swing.JFrame {
         });
         getContentPane().add(senhaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, 320, 30));
 
-        admField.setText("Admin");
-        admField.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Romance", "Ficção", "Técnico", "Romance e Ficção", "Romance e Técnico", "Ficção e Técnico" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                admFieldActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
-        getContentPane().add(admField, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 550, -1, -1));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 480, 220, -1));
+
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, 60));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tela_quatro.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -143,7 +140,7 @@ public class Adm extends javax.swing.JFrame {
         if (this.conexao != null) { // Certifique-se de que a conexão foi estabelecida com sucesso
 
             // Construa a consulta SQL para inserir um novo usuário
-            String sql = "INSERT INTO Usuarios (nome_usuario, senha_usuario, sexo_usuario, email_usuario, genero_pref, nivel_acesso, apelido_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Usuarios (nome_usuario, senha_usuario, sexo_usuario, idade_usuario, genero_pref, nivel_acesso, apelido_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)";
             pst = this.conexao.prepareStatement(sql);
 
             // Preencha os parâmetros da consulta com os valores do formulário
@@ -151,7 +148,7 @@ public class Adm extends javax.swing.JFrame {
             pst.setString(2, senhaField.getText());
             pst.setString(3, sexoField.getText());
             pst.setString(4, EmailField.getText());
-            pst.setString(5, generosField.getText());
+            pst.setString(5, (String) jComboBox1.getSelectedItem());
             pst.setString(6, "comum");  // Defina o nível de acesso padrão como "comum"
             pst.setString(7, usuarioField.getText());
 
@@ -180,17 +177,9 @@ public class Adm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void generosFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generosFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_generosFieldActionPerformed
-
     private void sexoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sexoFieldActionPerformed
-
-    private void admFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_admFieldActionPerformed
 
     private void usuarioFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioFieldActionPerformed
         // TODO add your handling code here:
@@ -199,6 +188,20 @@ public class Adm extends javax.swing.JFrame {
     private void senhaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_senhaFieldActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+          M_principal p = new M_principal();
+
+    // Tornar a janela ADM visível
+                p.setVisible(true);
+
+    // Fechar a janela atual (se necessário)
+                     this.dispose();      
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,16 +240,15 @@ public class Adm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField EmailField;
-    private javax.swing.JRadioButton admField;
-    private javax.swing.JTextField generosField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField nomeField;
     private javax.swing.JPasswordField senhaField;

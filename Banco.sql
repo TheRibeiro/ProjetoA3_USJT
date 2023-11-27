@@ -7,7 +7,7 @@ CREATE TABLE Usuarios (
     nome_usuario VARCHAR(255) NOT NULL,
     senha_usuario VARCHAR(255) NOT NULL,
     sexo_usuario VARCHAR(255),
-    email_usuario VARCHAR(255),
+    idade_usuario VARCHAR(255),
     genero_pref VARCHAR (255),
     nivel_acesso ENUM('comum', 'admin') DEFAULT 'comum',
     apelido_usuario VARCHAR(255),
@@ -31,5 +31,5 @@ CREATE TABLE Livros (
 );
 
 
-INSERT INTO Usuarios (nome_usuario, senha_usuario, sexo_usuario, email_usuario, genero_pref, nivel_acesso)
-VALUES ('Admin', 'SenhaAdmin123', 123456789, 'admin@email.com', 'Romance', 'admin');
+INSERT INTO Usuarios (nome_usuario, senha_usuario, sexo_usuario, idade_usuario, genero_pref, nivel_acesso)
+VALUES ('Admin', 'SenhaAdmin123', 123456789, '17', 'Romance', 'admin');

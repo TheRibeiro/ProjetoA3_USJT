@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public class ModuloConexao {
 
-    // Método responsável por estabelecer a conexão com o banco de dados
+   
     public static Connection conector() {
         Connection conexao = null;
 

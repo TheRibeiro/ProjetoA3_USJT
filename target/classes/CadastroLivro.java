@@ -43,6 +43,7 @@ public class CadastroLivro extends javax.swing.JFrame {
         nomeEditora = new javax.swing.JTextField();
         areaNota = new javax.swing.JTextField();
         generoArea = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,6 +89,16 @@ public class CadastroLivro extends javax.swing.JFrame {
         getContentPane().add(areaNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 450, 350, -1));
         getContentPane().add(generoArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 330, 300, -1));
 
+        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 70));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tela_seis.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -120,13 +131,13 @@ public class CadastroLivro extends javax.swing.JFrame {
             // Execute a inserção
             pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso");
+            JOptionPane.showMessageDialog(this, "Livro cadastrado com sucesso");
 
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
         }
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Erro ao cadastrar usuário", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Erro ao cadastrar Livro", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
     } finally {
         // Fechar recursos, se necessário
@@ -141,6 +152,16 @@ public class CadastroLivro extends javax.swing.JFrame {
     }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+          Livros p = new Livros();
+
+    // Tornar a janela ADM visível
+                p.setVisible(true);
+
+    // Fechar a janela atual (se necessário)
+                     this.dispose();      
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,6 +202,7 @@ public class CadastroLivro extends javax.swing.JFrame {
     private javax.swing.JTextField areaNota;
     private javax.swing.JTextField generoArea;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

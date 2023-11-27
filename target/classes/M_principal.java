@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -9,9 +12,17 @@
  */
 public class M_principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Livros
-     */
+   
+    private String nivelAcesso;
+
+    // Outros métodos e código...
+
+    // Método para definir o nível de acesso
+    public void setNivelAcesso(String nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
+    }
+    
+    
     public M_principal() {
         initComponents();
     }
@@ -57,14 +68,20 @@ public class M_principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       // Instanciar a classe ADM
-    Adm adm = new Adm();
+    if ("admin".equals(nivelAcesso)) {
+        // Nível de acesso é "admin", permitir a ação
+        // Instanciar a classe ADM
+        Adm adm = new Adm();
 
-    // Tornar a janela ADM visível
-    adm.setVisible(true);
+        // Tornar a janela ADM visível
+        adm.setVisible(true);
 
-    // Fechar a janela atual (se necessário)
-    this.dispose();
+        // Fechar a janela atual (se necessário)
+        this.dispose();
+    } else {
+        // Nível de acesso não é "admin", exibir mensagem ou tomar outra ação
+        JOptionPane.showMessageDialog(this, "Você não tem permissão para acessar esta funcionalidade.", "Permissão Negada", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -84,8 +84,12 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sairButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairButtonActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
+       this.dispose();
+                    
+                     Registro p = new Registro();
+
+    // Tornar a janela ADM visível
+                p.setVisible(true);
     }//GEN-LAST:event_sairButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
@@ -103,14 +107,18 @@ public class LoginFrame extends javax.swing.JFrame {
 
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(this, "Bem-vindo");
+                    
+                  String nivelAcesso = rs.getString("nivel_acesso");
 
-                     M_principal p = new M_principal();
+                this.dispose();
 
-    // Tornar a janela ADM visível
+                M_principal p = new M_principal();
+
+                // Passe o nível de acesso para a próxima janela
+                p.setNivelAcesso(nivelAcesso);
+
+                // Tornar a janela M_principal visível
                 p.setVisible(true);
-
-    // Fechar a janela atual (se necessário)
-                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos", "Erro de Login", JOptionPane.ERROR_MESSAGE);
                 }
